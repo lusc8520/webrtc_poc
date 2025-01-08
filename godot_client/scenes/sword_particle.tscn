@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1alakqkpyipj"]
+
+[ext_resource type="Texture2D" uid="uid://brbnk687rdd3j" path="res://assets/particle/impact_animation.png" id="1_g0mxf"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qwhpj"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qwhpj"]
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="SwordParticle" type="GPUParticles2D"]
+z_index = 1
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_qwhpj")
+emitting = false
+amount = 1
+lifetime = 0.4
+one_shot = true
+texture = ExtResource("1_g0mxf")
+process_material = SubResource("ParticleProcessMaterial_qwhpj")

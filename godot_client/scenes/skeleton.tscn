@@ -1,0 +1,257 @@
+[gd_scene load_steps=31 format=3 uid="uid://d117fafqqe56s"]
+
+[ext_resource type="Script" uid="uid://cdumd3ln0370n" path="res://code/enemy/skeleton.gd" id="1_w4hcs"]
+[ext_resource type="Texture2D" uid="uid://b134ro56uyshe" path="res://Pixel Crawler - FREE - 1.8/Enemy/Skeleton Crew/Skeleton - Base/Death/Death-Sheet.png" id="2_haw2w"]
+[ext_resource type="Texture2D" uid="uid://c8565x5mmvw5w" path="res://Pixel Crawler - FREE - 1.8/Enemy/Skeleton Crew/Skeleton - Base/Idle/Idle-Sheet.png" id="3_i0f3v"]
+[ext_resource type="Texture2D" uid="uid://biieoqc7e1gbs" path="res://Pixel Crawler - FREE - 1.8/Enemy/Skeleton Crew/Skeleton - Base/Run/Run-Sheet.png" id="4_xrus2"]
+[ext_resource type="Texture2D" uid="uid://ce8n8s7pvmtiv" path="res://Pixel Crawler - FREE - 1.8/Weapons/Bone/Bone.png" id="5_7e1v2"]
+[ext_resource type="Texture2D" uid="uid://bni6tkg18gn0o" path="res://Pixel Crawler - FREE - 1.8/Weapons/Hands/Hands.png" id="6_rjsi3"]
+[ext_resource type="Script" uid="uid://blgvakquraptj" path="res://code/Hurtbox.gd" id="7_3nhjk"]
+[ext_resource type="Script" uid="uid://b8pafqhmb3mdr" path="res://code/Hitbox.gd" id="7_haw2w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwexw"]
+atlas = ExtResource("2_haw2w")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pgb7"]
+atlas = ExtResource("2_haw2w")
+region = Rect2(128, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tilu5"]
+atlas = ExtResource("2_haw2w")
+region = Rect2(224, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24xe2"]
+atlas = ExtResource("2_haw2w")
+region = Rect2(320, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cj3xu"]
+atlas = ExtResource("2_haw2w")
+region = Rect2(416, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ql764"]
+atlas = ExtResource("2_haw2w")
+region = Rect2(512, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qoqhg"]
+atlas = ExtResource("2_haw2w")
+region = Rect2(608, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_udg8a"]
+atlas = ExtResource("2_haw2w")
+region = Rect2(704, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blcw0"]
+atlas = ExtResource("3_i0f3v")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50g4q"]
+atlas = ExtResource("3_i0f3v")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dlgs"]
+atlas = ExtResource("3_i0f3v")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vte5o"]
+atlas = ExtResource("3_i0f3v")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po8fv"]
+atlas = ExtResource("4_xrus2")
+region = Rect2(16, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ub8w1"]
+atlas = ExtResource("4_xrus2")
+region = Rect2(80, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynlg5"]
+atlas = ExtResource("4_xrus2")
+region = Rect2(144, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab83r"]
+atlas = ExtResource("4_xrus2")
+region = Rect2(208, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xb4a"]
+atlas = ExtResource("4_xrus2")
+region = Rect2(272, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dnjj"]
+atlas = ExtResource("4_xrus2")
+region = Rect2(336, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_po8fv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwexw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pgb7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tilu5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24xe2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cj3xu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ql764")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qoqhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_udg8a")
+}],
+"loop": false,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blcw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50g4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dlgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vte5o")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_po8fv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ub8w1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynlg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ab83r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xb4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0dnjj")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50g4q"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_blcw0"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_50g4q"]
+radius = 16.0
+
+[node name="Skeleton" type="CharacterBody2D" node_paths=PackedStringArray("agent", "navUpdateTimer", "aimController", "hand", "animSprite", "handWrapper", "hpBar", "hurtBox", "hitBox")]
+collision_layer = 0
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_w4hcs")
+agent = NodePath("NavigationAgent2D")
+navUpdateTimer = NodePath("NavUpdateTimer")
+aimController = NodePath("Weapon Origin/AimController")
+hand = NodePath("Weapon Origin/Hand")
+animSprite = NodePath("AnimatedSprite2D")
+handWrapper = NodePath("Weapon Origin/Hand/HandWrapper")
+hpBar = NodePath("Hp Bar Pos/ProgressBar")
+hurtBox = NodePath("Hurtbox")
+hitBox = NodePath("Weapon Origin/AimController/Hitbox")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 20.0
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 20.0
+neighbor_distance = 100.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_po8fv")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Hp Bar Pos" type="Node2D" parent="."]
+position = Vector2(0, -33.73)
+scale = Vector2(1, 0.5)
+
+[node name="ProgressBar" type="ProgressBar" parent="Hp Bar Pos"]
+modulate = Color(1, 0, 0, 1)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -12.5
+offset_right = 12.5
+offset_bottom = 4.0
+grow_horizontal = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_50g4q")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="NavUpdateTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="Weapon Origin" type="Node2D" parent="."]
+position = Vector2(0, -12)
+
+[node name="Hand" type="Node2D" parent="Weapon Origin"]
+position = Vector2(-8, 0)
+
+[node name="HandWrapper" type="Node2D" parent="Weapon Origin/Hand"]
+rotation = 1.5708
+
+[node name="Wep" type="Sprite2D" parent="Weapon Origin/Hand/HandWrapper"]
+texture_filter = 1
+position = Vector2(0, -8)
+texture = ExtResource("5_7e1v2")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(37, 17, 6, 27)
+
+[node name="Hand" type="Sprite2D" parent="Weapon Origin/Hand/HandWrapper"]
+texture = ExtResource("6_rjsi3")
+region_enabled = true
+region_rect = Rect2(4, 53, 7, 6)
+
+[node name="AimController" type="Node2D" parent="Weapon Origin"]
+
+[node name="Hitbox" type="Area2D" parent="Weapon Origin/AimController"]
+position = Vector2(15, 0)
+rotation = 1.5708
+collision_layer = 0
+monitoring = false
+monitorable = false
+script = ExtResource("7_haw2w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon Origin/AimController/Hitbox"]
+shape = SubResource("CapsuleShape2D_blcw0")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("7_3nhjk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_50g4q")

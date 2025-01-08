@@ -1,0 +1,258 @@
+[gd_scene load_steps=29 format=3 uid="uid://d5mtqnh31k1h"]
+
+[ext_resource type="Script" uid="uid://dlhn3vf24gfgp" path="res://code/Player.gd" id="1_ur7pv"]
+[ext_resource type="AudioStream" uid="uid://cb2ixe4ub7b" path="res://assets/sound/unknown/steps.ogg" id="2_y4r1p"]
+[ext_resource type="AudioStream" uid="uid://bktqyfvwtq52e" path="res://assets/sound/melee/animal melee sound.wav" id="3_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://dtgxmui8ft4cu" path="res://assets/textures/circle.png" id="4_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://ctqicsb7cfdcp" path="res://Pixel Crawler - FREE - 1.8/Heroes/Knight/Idle/Idle-Sheet.png" id="5_jej6c"]
+[ext_resource type="Texture2D" uid="uid://bepobcxcgrmov" path="res://Pixel Crawler - FREE - 1.8/Heroes/Knight/Run/Run-Sheet.png" id="6_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://bj4eeq2pj42jw" path="res://Pixel Crawler - FREE - 1.8/Weapons/Wood/Wood.png" id="7_oprun"]
+[ext_resource type="Texture2D" uid="uid://bni6tkg18gn0o" path="res://Pixel Crawler - FREE - 1.8/Weapons/Hands/Hands.png" id="8_a8ls1"]
+[ext_resource type="Script" uid="uid://b8pafqhmb3mdr" path="res://code/Hitbox.gd" id="9_qfm1y"]
+[ext_resource type="Script" uid="uid://blgvakquraptj" path="res://code/Hurtbox.gd" id="10_y4r1p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pq8q7"]
+radius = 3.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bf3um"]
+atlas = ExtResource("5_jej6c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huihk"]
+atlas = ExtResource("5_jej6c")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tw3kd"]
+atlas = ExtResource("5_jej6c")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gd4vy"]
+atlas = ExtResource("5_jej6c")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyidc"]
+atlas = ExtResource("6_f1ej7")
+region = Rect2(16, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvh5c"]
+atlas = ExtResource("6_f1ej7")
+region = Rect2(80, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28aoi"]
+atlas = ExtResource("6_f1ej7")
+region = Rect2(144, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnlp7"]
+atlas = ExtResource("6_f1ej7")
+region = Rect2(208, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8v81"]
+atlas = ExtResource("6_f1ej7")
+region = Rect2(272, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyht1"]
+atlas = ExtResource("6_f1ej7")
+region = Rect2(336, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vho56"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bf3um")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_huihk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tw3kd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gd4vy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyidc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvh5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28aoi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnlp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8v81")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vyht1")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4r1p"]
+bg_color = Color(0, 0, 0, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2wvv"]
+bg_color = Color(0.3058, 0.88, 0.1144, 1)
+border_color = Color(0.8, 0, 0, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qw60f"]
+radius = 20.0
+height = 60.0
+
+[sub_resource type="Curve" id="Curve_vyht1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_vyht1"]
+offsets = PackedFloat32Array(0, 0.993031)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.235294)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ur7pv"]
+radius = 8.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animSprite", "handSprite", "swordSprite", "handOrigin", "aimController", "handWrapper", "handController", "soundPosition", "hitbox", "nameLabel", "hurtBox", "hpBar")]
+collision_layer = 0
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_ur7pv")
+animSprite = NodePath("AnimatedSprite2D")
+footstepSound = ExtResource("2_y4r1p")
+handSprite = NodePath("Weapon Origin/HandWrapper/Hand")
+swordSprite = NodePath("Weapon Origin/HandWrapper/Sword")
+handOrigin = NodePath("Weapon Origin/Hand Origin")
+aimController = NodePath("Weapon Origin/Aim Controller")
+handWrapper = NodePath("Weapon Origin/HandWrapper")
+handController = NodePath("Weapon Origin/Hand Origin/RemoteTransform2D")
+swordSound = ExtResource("3_y4r1p")
+soundPosition = NodePath("Weapon Origin/Hand Origin/SoundPosition")
+hitbox = NodePath("Weapon Origin/Aim Controller/Hitbox")
+nameLabel = NodePath("LabelPos/Label")
+hurtBox = NodePath("Hurtbox")
+hpBar = NodePath("LabelPos/HpBar")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_pq8q7")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.196078)
+z_index = -1
+position = Vector2(0, -2.86102e-06)
+scale = Vector2(0.05, 0.02)
+texture = ExtResource("4_3v2ag")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_vho56")
+animation = &"run"
+frame = 4
+frame_progress = 0.631294
+
+[node name="LabelPos" type="Node2D" parent="."]
+position = Vector2(0, -35)
+
+[node name="Label" type="Label" parent="LabelPos"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = -8.0
+offset_right = 15.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 5
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HpBar" type="ProgressBar" parent="LabelPos"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -12.0
+offset_right = 12.0
+offset_bottom = 4.0
+grow_horizontal = 2
+scale = Vector2(1, 0.5)
+theme_override_font_sizes/font_size = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_y4r1p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_d2wvv")
+value = 100.0
+show_percentage = false
+
+[node name="Weapon Origin" type="Node2D" parent="."]
+position = Vector2(0, -12)
+
+[node name="HandWrapper" type="Node2D" parent="Weapon Origin"]
+position = Vector2(-8, 0)
+rotation = -1.5708
+
+[node name="Sword" type="Sprite2D" parent="Weapon Origin/HandWrapper"]
+position = Vector2(7, 2.19345e-05)
+rotation = 1.5708
+texture = ExtResource("7_oprun")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(35, 17, 10, 28)
+
+[node name="Hand" type="Sprite2D" parent="Weapon Origin/HandWrapper"]
+rotation = 1.5708
+texture = ExtResource("8_a8ls1")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(4, 21, 7, 6)
+
+[node name="Hand Origin" type="Node2D" parent="Weapon Origin"]
+
+[node name="SoundPosition" type="Node2D" parent="Weapon Origin/Hand Origin"]
+position = Vector2(25, 0)
+rotation = 0.579449
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Weapon Origin/Hand Origin"]
+position = Vector2(-8, 0)
+remote_path = NodePath("../../HandWrapper")
+update_rotation = false
+update_scale = false
+
+[node name="Aim Controller" type="Node2D" parent="Weapon Origin"]
+
+[node name="Hitbox" type="Area2D" parent="Weapon Origin/Aim Controller"]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+monitorable = false
+script = ExtResource("9_qfm1y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon Origin/Aim Controller/Hitbox"]
+position = Vector2(17, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qw60f")
+
+[node name="AimLine" type="Line2D" parent="Weapon Origin/Aim Controller"]
+z_index = -1
+points = PackedVector2Array(0, 0, 40, 0)
+width = 3.0
+width_curve = SubResource("Curve_vyht1")
+default_color = Color(0, 0, 0, 0.196078)
+gradient = SubResource("Gradient_vyht1")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_mask = 0
+monitoring = false
+script = ExtResource("10_y4r1p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_ur7pv")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://tcducp2cu4n"]
+
+[ext_resource type="Script" uid="uid://npud033g2po8" path="res://code/mesh/mt.gd" id="1_l8rx4"]
+
+[node name="MT" type="Node"]
+script = ExtResource("1_l8rx4")
