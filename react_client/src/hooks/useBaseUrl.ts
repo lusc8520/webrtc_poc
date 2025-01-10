@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const possibleUrls = ["http://3.66.158.107:3000", "http://localhost:3000"];
+const possibleUrls = ["http://3.66.158.107", "http://localhost:3000"];
 
 export function useBaseUrl() {
   const [baseUrl, setBaseUrl] = useState<string | undefined>(undefined);
@@ -14,7 +14,9 @@ export function useBaseUrl() {
   async function getBaseUrl() {
     for (const url of possibleUrls) {
       try {
-        const response = await fetch(`${url}/api/ping`);
+        const response = await fetch(`${url}/api/ping`, {
+          signal: AbortSignal.timeout(5000),
+        });
         const text = await response.text();
         if (text == "kek") {
           console.warn(`base url found: ${url}`);
