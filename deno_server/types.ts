@@ -1,3 +1,6 @@
+// @ts-types="npm:@types/ws@8.5.13"
+import { WebSocket } from "npm:ws@8.18.0";
+
 export type Lobby = {
   id: number;
   ids: Set<number>;

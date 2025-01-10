@@ -1,15 +1,12 @@
 import { GodotCanvas } from "./GodotCanvas.tsx";
 import { useEffect, useState } from "react";
-import { basePath } from "../../routes.ts";
+import { baseUrl } from "../../routes.ts";
 
 export function GodotPage() {
   const [sizes, setSizes] = useState<[number, number] | undefined>(undefined);
 
   useEffect(() => {
-    Promise.all([
-      fetchFileSize(`testproject.pck`),
-      fetchFileSize(`testproject.wasm`),
-    ]).then((ns) => setSizes(ns));
+    fetchFileSizes().then((fileSizes) => setSizes(fileSizes));
   }, []);
 
   if (sizes === undefined) return null;
@@ -23,9 +20,16 @@ export function GodotPage() {
   );
 }
 
-function fetchFileSize(s: string) {
-  return fetch(`${basePath}/${s}`, { method: "HEAD" })
-    .then((res) => res.headers.get("content-length"))
-    .then((s) => parseInt(s ?? "0"))
+function fetchFileSizes(): Promise<[number, number]> {
+  return Promise.all([
+    fetchFileSize("testproject.pck"),
+    fetchFileSize("testproject.wasm"),
+  ]);
+}
+
+async function fetchFileSize(s: string) {
+  return fetch(`${baseUrl}/api/fileSize/${s}`)
+    .then((res) => res.text())
+    .then((text) => parseInt(text))
     .catch(() => 0);
 }

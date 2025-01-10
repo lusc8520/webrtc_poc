@@ -1,5 +1,11 @@
-import { serveDir } from "jsr:@std/http/file-server";
 import { Client, Lobby, PacketType, sendMessageToClient } from "./types.ts";
+// @ts-types="npm:@types/express@5.0.0"
+import express from "npm:express@5.0.0";
+// @ts-types="npm:@types/cors@2.8.5"
+import cors from "npm:cors@2.8.5";
+import * as path from "https://deno.land/std@0.207.0/path/mod.ts";
+// @ts-types="npm:@types/ws@8.5.13"
+import { WebSocketServer } from "npm:ws@8.18.0";
 
 let clientIdCounter = 0;
 let lobbyIdCounter = 0;
@@ -7,47 +13,63 @@ let lobbyIdCounter = 0;
 const connectedClients = new Map<number, Client>();
 const openLobbies = new Map<number, Lobby>();
 
-Deno.serve({
-  port: 80,
-}, (req) => {
-  if (req.headers.get("upgrade") === "websocket") {
-    const { response, socket } = Deno.upgradeWebSocket(req);
-    const clientId = clientIdCounter;
-    clientIdCounter++;
-    const client: Client = {
-      id: clientId,
-      webSocket: socket,
-    };
-    socket.onopen = () => {
-      connectedClients.set(clientId, client);
-      joinOrCreateLobby(client);
-    };
-    socket.onmessage = (e) => {
-      try {
-        const message = JSON.parse(e.data);
-        const receiverId = message.receiverId;
-        const canSend = client.lobby?.ids.has(receiverId);
-        if (!canSend) return;
-        sendMessageToClient(connectedClients.get(receiverId), {
-          pType: message.packetType,
-          senderId: client.id,
-          ...message,
-        });
-      } catch (e) {
-        socket.close();
-      }
-    };
-    socket.onclose = () => {
+const dirname = path.dirname(path.fromFileUrl(import.meta.url));
+const staticDir = path.join(dirname, "../react_client/dist");
+const app = express();
+app.use(cors({ origin: "*" }));
+app.use(express.static(staticDir));
+
+app.get("/api/fileSize/:file", async (req, res) => {
+  try {
+    const fileInfo = await Deno.stat(path.join(staticDir, req.params.file));
+    const size = fileInfo.size;
+    res.send(size);
+  } catch {
+    res.send(0);
+  }
+});
+
+app.get(/(.*)/, (_, res) => {
+  res.sendFile(path.join(staticDir, "index.html"));
+});
+
+const server = app.listen(80, () => {
+  console.log("Listening on http://localhost:80");
+});
+
+const webSocketServer = new WebSocketServer({ server: server });
+
+webSocketServer.on("connection", (webSocket) => {
+  const clientId = clientIdCounter;
+  clientIdCounter++;
+  const client: Client = {
+    id: clientId,
+    webSocket: webSocket,
+  };
+
+  connectedClients.set(clientId, client);
+  joinOrCreateLobby(client);
+
+  webSocket.onmessage = (event) => {
+    try {
+      const message = JSON.parse(event.data as string);
+      const receiverId = message.receiverId;
+      const canSend = client.lobby?.ids.has(receiverId);
+      if (!canSend) return;
+      sendMessageToClient(connectedClients.get(receiverId), {
+        pType: message.packetType,
+        senderId: client.id,
+        ...message,
+      });
+    } catch {
+      webSocket.close();
+    }
+    webSocket.onerror = (e) => webSocket.close();
+    webSocket.onclose = (e) => {
       leaveLobby(client);
       connectedClients.delete(clientId);
     };
-    socket.onerror = () => {
-      socket.close();
-    };
-    return response;
-  } else {
-    return serveDir(req, { fsRoot: "public" });
-  }
+  };
 });
 
 function joinOrCreateLobby(client: Client) {
