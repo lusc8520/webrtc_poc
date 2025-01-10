@@ -1,8 +1,6 @@
 import { createRouter, defineRoute, param } from "type-route";
 
-export const baseUrl = "http://localhost:80";
-
-const baseRoute = defineRoute(baseUrl);
+const baseRoute = defineRoute("");
 
 export const { RouteProvider, useRoute, routes } = createRouter({
   home: baseRoute.extend("/home"),

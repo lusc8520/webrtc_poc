@@ -13,21 +13,30 @@ let lobbyIdCounter = 0;
 const connectedClients = new Map<number, Client>();
 const openLobbies = new Map<number, Lobby>();
 
-const dirname = path.dirname(path.fromFileUrl(import.meta.url));
-const staticDir = path.join(dirname, "../react_client/dist");
+const staticDir = path.join(
+  path.dirname(path.fromFileUrl(import.meta.url)),
+  "../react_client/dist",
+);
 const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.static(staticDir));
 
+function getStatic() {
+
+}
+
 app.get("/api/fileSize/:file", async (req, res) => {
   try {
     const fileInfo = await Deno.stat(path.join(staticDir, req.params.file));
-    const size = fileInfo.size;
-    res.send(size);
+    res.send(fileInfo.size);
   } catch {
     res.send(0);
   }
 });
+
+app.get("/api/ping", (req, res) => {
+  res.send("kek")
+})
 
 app.get(/(.*)/, (_, res) => {
   res.sendFile(path.join(staticDir, "index.html"));
@@ -37,14 +46,14 @@ const server = app.listen(80, () => {
   console.log("Listening on http://localhost:80");
 });
 
-const webSocketServer = new WebSocketServer({ server: server });
+const webSocketServer = new WebSocketServer({ server: server,  });
 
 webSocketServer.on("connection", (webSocket) => {
   const clientId = clientIdCounter;
   clientIdCounter++;
   const client: Client = {
     id: clientId,
-    webSocket: webSocket,
+    webSocket: webSocket
   };
 
   connectedClients.set(clientId, client);

@@ -1,4 +1,3 @@
-import { baseUrl } from "../../routes.ts";
 import { useEffect, useRef, useState } from "react";
 import { Engine } from "./engine";
 import {
@@ -24,10 +23,10 @@ type Props = {
 export function GodotCanvas({ fileName, pckSize, wasmSize }: Props) {
   const godotConfig = {
     canvasResizePolicy: 0,
-    executable: `${baseUrl}/${fileName}`,
+    executable: `/${fileName}`,
     fileSizes: {
-      [`${baseUrl}/${fileName}.pck`]: pckSize,
-      [`${baseUrl}/${fileName}.wasm`]: wasmSize,
+      [`/${fileName}.pck`]: pckSize,
+      [`/${fileName}.wasm`]: wasmSize,
     },
     onProgress: (current: number, total: number) => {
       setProgress(Math.floor((current / total) * 100));

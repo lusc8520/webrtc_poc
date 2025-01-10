@@ -8,7 +8,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import {CarPicture, getCarSrc, useRandomCar} from "./randomCar.ts";
+import { CarPicture, getCarSrc, useRandomCar } from "./randomCar.ts";
 import { useEffect, useState } from "react";
 import { LinkIcon, ReloadIcon } from "../icons/icons.tsx";
 
@@ -32,10 +32,10 @@ export function CarPage() {
                 window.open(getCarSrc(car));
               }}
               transition="color 0.15s"
-              _hover={{ color: "lightgrey" }}
+              _hover={{ color: car === undefined ? "grey" : "lightgrey" }}
               paddingRight={1}
               gap={1}
-              cursor="pointer"
+              cursor={car === undefined ? "default" : "pointer"}
               align="center"
               color={car === undefined ? "grey" : "darkgrey"}
             >
