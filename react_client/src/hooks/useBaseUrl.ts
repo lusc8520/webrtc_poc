@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const possibleUrls = ["3.66.158.107:8080", "http://localhost:8080"];
+const possibleUrls = ["3.66.158.107:3000", "http://localhost:3000"];
 
 export function useBaseUrl() {
   const [baseUrl, setBaseUrl] = useState<string | undefined>(undefined);

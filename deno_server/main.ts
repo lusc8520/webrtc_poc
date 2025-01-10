@@ -38,8 +38,8 @@ app.get(/(.*)/, (_, res) => {
   res.sendFile(path.join(staticDir, "index.html"));
 });
 
-const server = app.listen(8080, () => {
-  console.log("Listening on http://localhost:8080");
+const server = app.listen(3000, () => {
+  console.log("Listening on http://localhost:3000");
 });
 
 const webSocketServer = new WebSocketServer({ server: server,  });
