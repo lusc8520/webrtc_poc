@@ -28,10 +28,6 @@ export function GodotCanvas({ fileName, pckSize, wasmSize }: Props) {
       [`/${fileName}.pck`]: pckSize,
       [`/${fileName}.wasm`]: wasmSize,
     },
-    locate_file: (file) => {
-      console.warn("AAAAAAAAAAAA");
-      return "/" + file;
-    },
     onProgress: (current: number, total: number) => {
       setProgress(Math.floor((current / total) * 100));
     },

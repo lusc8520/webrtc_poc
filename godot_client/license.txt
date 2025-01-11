@@ -1,0 +1,4 @@
+see godot engine license here:
+
+https://godotengine.org/license/
+
