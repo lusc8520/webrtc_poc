@@ -5,8 +5,10 @@ enum SendType { Reliable, Unreliable }
 var id: int
 var name: String = ""
 var connection := WebRTCPeerConnection.new()
-var reliableChannel := connection.create_data_channel("reliable", {"negotiated": true, "id": 1})
-var unreliableChannel := connection.create_data_channel("unreliable", {"negotiated": true, "id": 2, "maxRetransmits": 0})
+var reliableChannel := connection.create_data_channel("reliable", {"negotiated": true, "id": 1, "iceServers":
+	[{"urls": ["stun.l.google.com:19302", "stun1.l.google.com:19302", "stun2.l.google.com:19302", "stun3.l.google.com:19302", "stun4.l.google.com:19302"]}] })
+var unreliableChannel := connection.create_data_channel("unreliable", {"negotiated": true, "id": 2, "maxRetransmits": 0, "iceServers":
+	[{"urls": ["stun.l.google.com:19302", "stun1.l.google.com:19302", "stun2.l.google.com:19302", "stun3.l.google.com:19302", "stun4.l.google.com:19302"]}] })
 
 signal onConnected()
 signal onClosed()
