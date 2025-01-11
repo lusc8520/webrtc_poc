@@ -25,9 +25,7 @@ func _ready() -> void:
 	startConnection()
 	
 func startConnection() -> void:
-# 	var url := "ws://127.0.0.1:3000/" if OS.is_debug_build() else "server url here.."
-	var url := "wss://www.shuneman.net/"
-	var error := connection.connect_to_url(url)
+	var error := connection.connect_to_url("wss://shuneman.net/ws")
 	if error != OK:
 		push_error(error)
 		return
