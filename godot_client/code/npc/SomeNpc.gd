@@ -9,6 +9,9 @@ func _ready() -> void:
 	npc.aimController.visible = false
 	npc.hpBar.visible = false
 	npc.aimAngle = (dummy.position - npc.position).angle()
+	npc.hitbox.area_entered.connect(func (hurtbox: Hurtbox) -> void:
+		hurtbox.hurt()
+		)
 	startAttack()
 	
 func startAttack() -> void:
