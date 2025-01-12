@@ -4,11 +4,20 @@ enum SendType { Reliable, Unreliable }
 
 var id: int
 var name: String = ""
-var connection := WebRTCPeerConnection.new()
-var reliableChannel := connection.create_data_channel("reliable", {"negotiated": true, "id": 1, "iceServers":
-	[{"urls": ["stun.l.google.com:19302", "stun1.l.google.com:19302", "stun2.l.google.com:19302", "stun3.l.google.com:19302", "stun4.l.google.com:19302"]}] })
-var unreliableChannel := connection.create_data_channel("unreliable", {"negotiated": true, "id": 2, "maxRetransmits": 0, "iceServers":
-	[{"urls": ["stun.l.google.com:19302", "stun1.l.google.com:19302", "stun2.l.google.com:19302", "stun3.l.google.com:19302", "stun4.l.google.com:19302"]}] })
+var connection: WebRTCPeerConnection
+var reliableChannel : WebRTCDataChannel
+var unreliableChannel : WebRTCDataChannel
+# var connection := WebRTCPeerConnection.new()
+# var reliableChannel := connection.create_data_channel("reliable", {"negotiated": true, "id": 1 })
+# var unreliableChannel := connection.create_data_channel("unreliable", {"negotiated": true, "id": 2, "maxRetransmits": 0 })
+
+static var config := {
+	"iceServers": [
+		{
+			"urls": ["stun.l.google.com:19302", "stun1.l.google.com:19302", "stun2.l.google.com:19302", "stun3.l.google.com:19302", "stun4.l.google.com:19302"]
+		}
+	]
+}
 
 signal onConnected()
 signal onClosed()
@@ -32,6 +41,10 @@ var connectionState: WebRTCPeerConnection.ConnectionState = WebRTCPeerConnection
 
 func _init(clientId: int) -> void:
 	id = clientId
+	connection = WebRTCPeerConnection.new()
+	connection.initialize(config)
+	reliableChannel = connection.create_data_channel("reliable", {"negotiated": true, "id": 1 })
+	unreliableChannel = connection.create_data_channel("unreliable", {"negotiated": true, "id": 2, "maxRetransmits": 0 })
 	connection.session_description_created.connect(onSessionDescriptionCreated)
 	connection.ice_candidate_created.connect(onIceCandidateCreated)
 	

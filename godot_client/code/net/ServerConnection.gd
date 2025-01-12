@@ -25,7 +25,9 @@ func _ready() -> void:
 	startConnection()
 	
 func startConnection() -> void:
-	var error := connection.connect_to_url("wss://shuneman.net/ws")
+# 	var url := "ws://localhost:3000/"
+	var url := "wss://shuneman.net/ws"
+	var error := connection.connect_to_url(url)
 	if error != OK:
 		push_error(error)
 		return

@@ -1,38 +1,28 @@
-import { Client, Lobby, PacketType, sendMessageToClient } from "./types.ts";
-// @ts-types="npm:@types/express@5.0.0"
-import express from "npm:express@5.0.0";
-// @ts-types="npm:@types/cors@2.8.5"
-import cors from "npm:cors@2.8.5";
-import * as path from "https://deno.land/std@0.207.0/path/mod.ts";
-// @ts-types="npm:@types/ws@8.5.13"
-import { WebSocketServer } from "npm:ws@8.18.0";
+import express from "express";
+import cors from "cors";
+import path from "path";
+import fs from "fs";
+import { WebSocketServer } from "ws";
+import { Client, Lobby, PacketType, sendMessageToClient } from "./types";
 
-let clientIdCounter = 0;
-let lobbyIdCounter = 0;
+const staticDir = path.join(__dirname, "../react_client/dist");
 
-const connectedClients = new Map<number, Client>();
-const openLobbies = new Map<number, Lobby>();
-
-const staticDir = path.join(
-  path.dirname(path.fromFileUrl(import.meta.url)),
-  "../react_client/dist",
-);
 const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.static(staticDir));
 
 app.get("/api/fileSize/:file", async (req, res) => {
   try {
-    const fileInfo = await Deno.stat(path.join(staticDir, req.params.file));
-    res.send(fileInfo.size);
+    const fileStats = fs.statSync(path.join(staticDir, req.params.file));
+    res.send(fileStats.size);
   } catch {
     res.send(0);
   }
 });
 
 app.get("/api/ping", (req, res) => {
-  res.send("kek")
-})
+  res.send("kek");
+});
 
 app.get(/(.*)/, (_, res) => {
   res.sendFile(path.join(staticDir, "index.html"));
@@ -42,14 +32,20 @@ const server = app.listen(3000, () => {
   console.log("Listening on http://localhost:3000");
 });
 
-const webSocketServer = new WebSocketServer({ server: server,  });
+const webSocketServer = new WebSocketServer({ server: server });
+
+let clientIdCounter = 0;
+let lobbyIdCounter = 0;
+
+const connectedClients = new Map<number, Client>();
+const openLobbies = new Map<number, Lobby>();
 
 webSocketServer.on("connection", (webSocket) => {
   const clientId = clientIdCounter;
   clientIdCounter++;
   const client: Client = {
     id: clientId,
-    webSocket: webSocket
+    webSocket: webSocket,
   };
 
   connectedClients.set(clientId, client);
@@ -78,7 +74,8 @@ webSocketServer.on("connection", (webSocket) => {
 });
 
 function joinOrCreateLobby(client: Client) {
-  const lobby = openLobbies.values().find((lobby) => lobby.ids.size < 5);
+  const lobby = [...openLobbies.values()].find((l) => l.ids.size < 5);
+
   if (lobby === undefined) {
     const newLobbyId = lobbyIdCounter;
     const createLobby: Lobby = {
@@ -96,9 +93,10 @@ function joinOrCreateLobby(client: Client) {
     return createLobby;
   } else {
     client.lobby = lobby;
+    console.log([...lobby.ids.values()]);
     sendMessageToClient(client, {
       pType: PacketType.JOINED,
-      ids: lobby.ids.values().toArray(),
+      ids: [...lobby.ids.values()],
     });
     lobby.ids.add(client.id);
     return lobby;

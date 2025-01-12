@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --allow-net --allow-read --allow-env --watch main.ts",
+    "dev": "deno run --allow-net --allow-read --allow-env --allow-ffi --watch main.ts",
     "compile": "deno compile --allow-read --allow-net --include public -o ./server main.ts"
   },
   "imports": {
