@@ -3,18 +3,14 @@ class_name RemoteWebRTCPeer
 enum SendType { Reliable, Unreliable }
 
 var id: int
-var name: String = ""
 var connection: WebRTCPeerConnection
 var reliableChannel : WebRTCDataChannel
 var unreliableChannel : WebRTCDataChannel
-# var connection := WebRTCPeerConnection.new()
-# var reliableChannel := connection.create_data_channel("reliable", {"negotiated": true, "id": 1 })
-# var unreliableChannel := connection.create_data_channel("unreliable", {"negotiated": true, "id": 2, "maxRetransmits": 0 })
 
 static var config := {
 	"iceServers": [
 		{
-			"urls": ["stun.l.google.com:19302", "stun1.l.google.com:19302", "stun2.l.google.com:19302", "stun3.l.google.com:19302", "stun4.l.google.com:19302"]
+			"urls": ["stun:stun.l.google.com:19302", "stun:stun1.l.google.com:19302", "stun:stun2.l.google.com:19302", "stun:stun3.l.google.com:19302", "stun:stun4.l.google.com:19302"]
 		}
 	]
 }
