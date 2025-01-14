@@ -11,6 +11,7 @@ extends CharacterBody2D
 @export var hpBar: ProgressBar
 @export var hurtBox: Hurtbox
 @export var hitBox: Hitbox
+@export var hurtSound: AudioStream
 
 signal onDie()
 
@@ -41,6 +42,9 @@ func _ready() -> void:
 	hitBox.area_entered.connect(func (hurtbox: Hurtbox) -> void:
 		hurtbox.hurt()
 		ParticleHandler.instance.spawnParticle(hurtbox.global_position)
+		)
+	hurtBox.onHurt.connect(func () -> void:
+		AudioHandler.instance.playAudio(hurtSound, global_position, randf_range(0.9, 1.25) )
 		)
 	navUpdateTimer.start()
 	navUpdateTimer.timeout.connect(func () -> void:

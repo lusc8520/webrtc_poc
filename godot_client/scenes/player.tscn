@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://d5mtqnh31k1h"]
+[gd_scene load_steps=30 format=3 uid="uid://d5mtqnh31k1h"]
 
 [ext_resource type="Script" uid="uid://dlhn3vf24gfgp" path="res://code/Player.gd" id="1_ur7pv"]
 [ext_resource type="AudioStream" uid="uid://cb2ixe4ub7b" path="res://assets/sound/unknown/steps.ogg" id="2_y4r1p"]
 [ext_resource type="AudioStream" uid="uid://bktqyfvwtq52e" path="res://assets/sound/melee/animal melee sound.wav" id="3_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://dtgxmui8ft4cu" path="res://assets/textures/circle.png" id="4_3v2ag"]
+[ext_resource type="AudioStream" uid="uid://bpn18g6k6s2rx" path="res://assets/sound/impactPlate_heavy_000.ogg" id="4_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://ctqicsb7cfdcp" path="res://Pixel Crawler - FREE - 1.8/Heroes/Knight/Idle/Idle-Sheet.png" id="5_jej6c"]
 [ext_resource type="Texture2D" uid="uid://bepobcxcgrmov" path="res://Pixel Crawler - FREE - 1.8/Heroes/Knight/Run/Run-Sheet.png" id="6_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://bj4eeq2pj42jw" path="res://Pixel Crawler - FREE - 1.8/Weapons/Wood/Wood.png" id="7_oprun"]
@@ -133,13 +134,12 @@ aimController = NodePath("Weapon Origin/Aim Controller")
 handWrapper = NodePath("Weapon Origin/HandWrapper")
 handController = NodePath("Weapon Origin/Hand Origin/RemoteTransform2D")
 swordSound = ExtResource("3_y4r1p")
+hurtSound = ExtResource("4_d2wvv")
 soundPosition = NodePath("Weapon Origin/Hand Origin/SoundPosition")
 hitbox = NodePath("Weapon Origin/Aim Controller/Hitbox")
 nameLabel = NodePath("LabelPos/Label")
 hurtBox = NodePath("Hurtbox")
 hpBar = NodePath("LabelPos/HpBar")
-
-[node name="Node3D" type="Node3D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)

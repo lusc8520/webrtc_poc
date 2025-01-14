@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://c7v87m3sy0t6u"]
+[gd_scene load_steps=37 format=4 uid="uid://c7v87m3sy0t6u"]
 
 [ext_resource type="Script" uid="uid://cxu8suyap2nd0" path="res://code/InputHandler.gd" id="1_l8v81"]
 [ext_resource type="Script" uid="uid://cggu107oi2ycl" path="res://code/AudioHandler.gd" id="1_qt76e"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cjx15lsr4c42v" path="res://code/npc/SomeNpc.gd" id="8_r3r3k"]
 [ext_resource type="Texture2D" uid="uid://ctqicsb7cfdcp" path="res://Pixel Crawler - FREE - 1.8/Heroes/Knight/Idle/Idle-Sheet.png" id="8_sq7yr"]
 [ext_resource type="PackedScene" uid="uid://d5mtqnh31k1h" path="res://scenes/player.tscn" id="9_huihk"]
+[ext_resource type="Script" path="res://code/AudioOptions.gd" id="10_blcw0"]
 [ext_resource type="Script" uid="uid://c17ddpwtfxurx" path="res://code/enemy/enemy_handler.gd" id="10_qwhpj"]
 [ext_resource type="PackedScene" uid="uid://d117fafqqe56s" path="res://scenes/skeleton.tscn" id="11_qt76e"]
 [ext_resource type="Texture2D" uid="uid://dk8t6jrx6357i" path="res://nc.png" id="15_sq7yr"]
@@ -86,6 +87,25 @@ content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0.258824, 0.521569, 0.65098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_po8fv"]
+bg_color = Color(0.52, 0.2704, 0.2704, 1)
+corner_radius_top_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vte5o"]
+bg_color = Color(0.37, 0.1924, 0.1924, 1)
+corner_radius_top_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ub8w1"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.368627, 0.192157, 0.192157, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -445,7 +465,9 @@ camera = NodePath("../World/Camera2D")
 player = NodePath("../World/Player")
 aimLine = NodePath("../World/Player/Weapon Origin/Aim Controller/AimLine")
 
-[node name="NameChanger" type="CanvasLayer" parent="." node_paths=PackedStringArray("button", "lineEdit", "lineEditContainer", "okButton", "cancelButton", "portraitLabel")]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="InputHandler"]
+
+[node name="NameChanger" type="CanvasLayer" parent="." node_paths=PackedStringArray("button", "lineEdit", "lineEditContainer", "okButton", "cancelButton", "portraitLabel", "audioOptions")]
 script = ExtResource("2_qw60f")
 button = NodePath("Button")
 lineEdit = NodePath("Panel/VBoxContainer/LineEdit")
@@ -453,6 +475,9 @@ lineEditContainer = NodePath("Panel")
 okButton = NodePath("Panel/VBoxContainer/HBoxContainer/OkButton")
 cancelButton = NodePath("Panel/VBoxContainer/HBoxContainer/CancelButton")
 portraitLabel = NodePath("Portrait/Panel2/Label")
+audioOptions = NodePath("Button2/PanelContainer")
+
+[node name="AudioOptions" type="Node2D" parent="NameChanger"]
 
 [node name="Portrait" type="Node2D" parent="NameChanger" node_paths=PackedStringArray("hpBar")]
 position = Vector2(30, 28)
@@ -572,6 +597,71 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 12
 text = "Cancel"
 
+[node name="Button2" type="Button" parent="NameChanger" node_paths=PackedStringArray("container", "nameChange", "okButton", "musicSlider", "soundEffectSlider")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_po8fv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vte5o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vte5o")
+action_mode = 0
+text = "Options"
+script = ExtResource("10_blcw0")
+container = NodePath("PanelContainer")
+nameChange = NodePath("../Panel")
+okButton = NodePath("PanelContainer/VBoxContainer/Button")
+musicSlider = NodePath("PanelContainer/VBoxContainer/HSlider")
+soundEffectSlider = NodePath("PanelContainer/VBoxContainer/HSlider2")
+
+[node name="PanelContainer" type="PanelContainer" parent="NameChanger/Button2"]
+visible = false
+layout_mode = 0
+offset_left = -127.0
+offset_top = -117.0
+offset_right = 24.0
+offset_bottom = -9.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ub8w1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NameChanger/Button2/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NameChanger/Button2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Music Volume"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="NameChanger/Button2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="Label2" type="Label" parent="NameChanger/Button2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Effect Volume"
+horizontal_alignment = 1
+
+[node name="HSlider2" type="HSlider" parent="NameChanger/Button2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="Button" type="Button" parent="NameChanger/Button2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "OK"
+
 [node name="RemotePlayerHandler" type="Node" parent="." node_paths=PackedStringArray("world")]
 script = ExtResource("7_gd4vy")
 world = NodePath("../World")
@@ -662,11 +752,11 @@ position = Vector2(-101, -24)
 [node name="Player" parent="World" instance=ExtResource("9_huihk")]
 position = Vector2(-31, -1)
 
-[node name="AnimatedSprite2D" parent="World/Player" index="3"]
+[node name="AnimatedSprite2D" parent="World/Player" index="2"]
 frame = 0
 frame_progress = 0.0
 
-[node name="LabelPos" parent="World/Player" index="4"]
+[node name="LabelPos" parent="World/Player" index="3"]
 visible = false
 
 [editable path="World/Player"]

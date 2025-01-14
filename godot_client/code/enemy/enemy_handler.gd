@@ -36,7 +36,10 @@ func spawnEnemy() -> void:
 	var id := count
 	var attackTimer := Timer.new()
 	attackTimer.autostart = true
-	attackTimer.timeout.connect(skeleton.attack)
+	attackTimer.timeout.connect(func () ->void:
+		skeleton.attack()
+		attackTimer.wait_time = randf_range(0.25, 3)
+		)
 	skeleton.add_child(attackTimer)
 	skeleton.target = player
 	skeleton.position = spawnPoint.position

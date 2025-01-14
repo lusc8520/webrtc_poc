@@ -7,6 +7,7 @@ extends CanvasLayer
 @export var okButton: Button
 @export var cancelButton : Button
 @export var portraitLabel: Label
+@export var audioOptions: Control
 
 static var instance: NameChanger
 
@@ -34,6 +35,7 @@ func _ready() -> void:
 		var vis := !lineEditContainer.visible
 		lineEditContainer.visible = vis
 		if (vis):
+			audioOptions.visible = false
 			lineEdit.grab_focus()
 			inputHandler.player.inputDir = Vector2.ZERO
 		inputHandler.handleInput = !vis

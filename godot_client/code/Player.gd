@@ -12,6 +12,7 @@ const SPEED:= 100
 @export var handWrapper: Node2D
 @export var handController: Node2D
 @export var swordSound: AudioStream
+@export var hurtSound: AudioStream
 @export var soundPosition: Node2D
 @export var hitbox: Hitbox
 @export var nameLabel: Label
@@ -57,6 +58,9 @@ func _ready() -> void:
 	setState(MovementState.idleState)
 	hitbox.area_entered.connect(func (hurtbox: Hurtbox) -> void:
 		ParticleHandler.instance.spawnParticle(hurtbox.global_position)
+		)
+	hurtBox.onHurt.connect( func () -> void:
+		AudioHandler.instance.playAudio(hurtSound, global_position, randf_range(0.75, 1.25))
 		)
 	animSprite.frame_changed.connect(func () -> void: currentState.onAnimationFrameChanged(self, animSprite.frame))
 

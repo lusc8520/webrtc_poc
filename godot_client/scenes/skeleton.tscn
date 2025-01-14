@@ -1,7 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://d117fafqqe56s"]
+[gd_scene load_steps=32 format=3 uid="uid://d117fafqqe56s"]
 
 [ext_resource type="Script" uid="uid://cdumd3ln0370n" path="res://code/enemy/skeleton.gd" id="1_w4hcs"]
 [ext_resource type="Texture2D" uid="uid://b134ro56uyshe" path="res://Pixel Crawler - FREE - 1.8/Enemy/Skeleton Crew/Skeleton - Base/Death/Death-Sheet.png" id="2_haw2w"]
+[ext_resource type="AudioStream" uid="uid://ckcfmsj82oexb" path="res://assets/sound/step-skeleton-47785.mp3" id="2_i0f3v"]
 [ext_resource type="Texture2D" uid="uid://c8565x5mmvw5w" path="res://Pixel Crawler - FREE - 1.8/Enemy/Skeleton Crew/Skeleton - Base/Idle/Idle-Sheet.png" id="3_i0f3v"]
 [ext_resource type="Texture2D" uid="uid://biieoqc7e1gbs" path="res://Pixel Crawler - FREE - 1.8/Enemy/Skeleton Crew/Skeleton - Base/Run/Run-Sheet.png" id="4_xrus2"]
 [ext_resource type="Texture2D" uid="uid://ce8n8s7pvmtiv" path="res://Pixel Crawler - FREE - 1.8/Weapons/Bone/Bone.png" id="5_7e1v2"]
@@ -176,6 +177,7 @@ handWrapper = NodePath("Weapon Origin/Hand/HandWrapper")
 hpBar = NodePath("Hp Bar Pos/ProgressBar")
 hurtBox = NodePath("Hurtbox")
 hitBox = NodePath("Weapon Origin/AimController/Hitbox")
+hurtSound = ExtResource("2_i0f3v")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 target_desired_distance = 20.0
